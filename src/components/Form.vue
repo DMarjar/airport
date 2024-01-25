@@ -65,14 +65,16 @@
 
       <p>
         <label class="form-label" for="birthdate">Birth date (18+)</label>
-        <input
+        <b-form-datepicker
             id="birthdate"
             name="birthdate"
-            class="form-control"
-            type="date"
             v-model="birthdate"
-            placeholder="Your age"
+            :max="maximumDate"
+            :min="minimumDate"
+            :show-decade-nav="true"
+            placeholder="Your birth date"
         >
+        </b-form-datepicker>
       </p>
 
       <p>
@@ -101,15 +103,18 @@
 
       <p>
         <label class="form-label" for="photo">Profile photo (PNG)</label>
-        <input
+        <b-form-file
             id="photo"
             name="photo"
-            class="form-control"
-            type="file"
-            :change="photo"
+            v-model="photo"
+            accept="image/png"
+            placeholder="Choose a file or drop it here..."
+            drop-placeholder="Drop file here..."
+            :state="Boolean(photo)"
+            plain
         >
+        </b-form-file>
       </p>
-
       <p>
         <input
             type="submit"
@@ -136,10 +141,20 @@ export default {
       email: null,
       phoneNumber: null,
       photo: null,
+
+      minimumDate: this.calculateDateForForm(120),
+      maximumDate: this.calculateDateForForm(18)
+
     }
   },
 
   methods: {
+
+    calculateDateForForm(yearsBack) {
+      const today = new Date();
+      return new Date(today.setFullYear(today.getFullYear() - yearsBack)).toISOString().split('T')[0];
+    },
+
     checkForm() {
       this.errors = [];
 
@@ -215,5 +230,10 @@ export default {
 <style>
 .text-red {
   color: red;
+}
+
+.form-control-file {
+  width: 100%;
+
 }
 </style>
