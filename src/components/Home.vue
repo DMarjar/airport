@@ -33,6 +33,14 @@
             <b-button @click="goTo('/canceled')" variant="outline-primary">Go to canceled flights</b-button>
           </b-card>
         </b-col>
+        <b-col cols="12" xl="4" class="mt-2">
+          <b-card header="Form">
+            <b-card-text>
+              Here you can go to the form page.
+            </b-card-text>
+            <b-button @click="goTo('/form')" variant="outline-primary">Go to form</b-button>
+          </b-card>
+        </b-col>
       </b-row>
     </b-container>
   </div>
